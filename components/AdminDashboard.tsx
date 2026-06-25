@@ -128,7 +128,7 @@ export default function AdminDashboard({
   <TabsTrigger
     value="verifications"
     className="
-      gap-1.5 rounded-lg px-4 py-2 transition-all
+      gap-1.5 rounded-lg px-4 py-2 transition-all border border-2 border-[#f1f1f1]
       data-[state=active]:bg-primary
       data-[state=active]:text-primary-foreground
       data-[state=active]:shadow-md
@@ -141,7 +141,7 @@ export default function AdminDashboard({
   <TabsTrigger
     value="notices"
     className="
-      gap-1.5 rounded-lg px-4 py-2 transition-all
+      gap-1.5 rounded-lg px-4 py-2 transition-all border border-2 border-[#f1f1f1]
       data-[state=active]:bg-primary
       data-[state=active]:text-primary-foreground
       data-[state=active]:shadow-md
@@ -158,6 +158,7 @@ export default function AdminDashboard({
       data-[state=active]:bg-primary
       data-[state=active]:text-primary-foreground
       data-[state=active]:shadow-md
+      border border-2 border-[#f1f1f1]
     "
   >
     <Video className="h-4 w-4" />
@@ -171,6 +172,7 @@ export default function AdminDashboard({
       data-[state=active]:bg-primary
       data-[state=active]:text-primary-foreground
       data-[state=active]:shadow-md
+      border border-2 border-[#f1f1f1]
     "
   >
     <BookOpen className="h-4 w-4" />
