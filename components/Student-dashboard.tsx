@@ -64,7 +64,7 @@ export default function StudentDashboard() {
     const token = localStorage.getItem("token");
 
     if (!token || !storedUser) {
-      toast.error("অনুগ্রহ করে আগে লগইন করুন!");
+      // toast.error("অনুগ্রহ করে আগে লগইন করুন!");
       localStorage.clear();
       router.push("/student-login"); 
       return;

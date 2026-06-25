@@ -53,7 +53,7 @@ export default function RegistrationForm() {
         return
       }
       
-      toast.success(res?.message || "রেজিস্ট্রেশন সফল হয়েছে!");
+      toast.success(res?.message || "রেজিস্ট্রেশন সফল হয়েছে, লগইন করে ডেসবোর্ডে প্রবেশ করুন!");
       router.push("/student");
      
     } catch (error) {
