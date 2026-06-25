@@ -56,7 +56,7 @@ export default function StudentLoginPage() {
             </div>
             <h1 className="mt-4 text-2xl font-bold text-foreground">শিক্ষার্থী পোর্টাল</h1>
             <p className="mt-1 text-sm text-muted-foreground">
-              আপনার রেজিস্টার্ড ইমেইল ও পাসওয়ার্ড দিয়ে লগ隐ন করুন
+              আপনার রেজিস্টার্ড ইমেইল ও পাসওয়ার্ড দিয়ে লগইন করুন
             </p>
           </div>
 

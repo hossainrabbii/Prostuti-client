@@ -1,5 +1,5 @@
 // ১. এপিআই এর বেইজ ইউআরএল (আপনার কনফিগারেশন অনুযায়ী)
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://prostuti-server.vercel.app/api/v1";
 
 // ২. টাইপ ডেফিনিশন (Type-Safety এর জন্য)
 export interface INotice {

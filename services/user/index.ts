@@ -1,5 +1,5 @@
 // আপনার ব্যাকএন্ডের বেস ইউআরএল (প্রজেক্টের এভায়রনমেন্ট ভ্যারিয়েবল থেকে নিতে পারেন)
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://prostuti-server.vercel.app/api/v1";
 
 /**
  * নতুন ইউজার রেজিস্ট্রেশন করার ফাংশন

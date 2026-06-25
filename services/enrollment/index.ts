@@ -1,4 +1,4 @@
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:5000/api/v1";
+const BASE_URL = process.env.NEXT_PUBLIC_API_URL || " https://prostuti-server.vercel.app/api/v1";
 
 // ১. স্টুডেন্টের কোর্স এনরোলমেন্ট রিকোয়েস্ট পাঠানো
 const enrollInCourse = async (data: { studentId: string; courseId: string; paidNumber: string; transactionId: string }) => {
