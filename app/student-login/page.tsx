@@ -115,13 +115,19 @@ export default function StudentLoginPage() {
               )}
             </Button>
           </form>
-
+          <div className="flex justify-between">
+          <div className="mt-6 flex items-center justify-between text-xs text-muted-foreground">
+            <Link href="/" className="hover:text-foreground hover:underline">
+              ← হোমে ফিরুন
+            </Link>
+          </div>
           <p className="mt-6 text-center text-xs text-muted-foreground">
             এখনো ভর্তি হননি?{" "}
             <Link href="/" className="font-semibold text-primary hover:underline">
               এখনী ভর্তি হোন
             </Link>
           </p>
+          </div>
         </div>
       </div>
     </div>

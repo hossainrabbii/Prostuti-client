@@ -124,7 +124,7 @@ export default function AdminDashboard({
         <AdminStatCard enrollments={enrollments}/>
 
         <Tabs defaultValue="verifications" className="mt-8 flex-col">
-        <TabsList className="h-auto w-full flex-wrap justify-start gap-2 bg-muted p-2 rounded-xl">
+        <TabsList className="h-auto w-full flex-wrap  gap-2 bg-muted p-2 rounded-xl flex-col md:flex-row">
   <TabsTrigger
     value="verifications"
     className="
@@ -176,6 +176,7 @@ export default function AdminDashboard({
     <BookOpen className="h-4 w-4" />
     কোর্স
   </TabsTrigger>
+
 </TabsList>
 
           <TabsContent value="verifications" className="mt-4">
