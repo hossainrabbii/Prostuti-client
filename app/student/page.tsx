@@ -17,7 +17,6 @@ export default function StudentPage() {
   useEffect(() => {
     const checkEnrollmentAndFetchData = async () => {
       try {
-        // ১. ব্রাউজারের localStorage থেকে ইউজার ডাটা নেওয়া
         const storedUser = localStorage.getItem("user");
         if (!storedUser) {
           setPageLoading(false);
@@ -68,10 +67,7 @@ export default function StudentPage() {
 
   return (
     <div className="min-h-screen bg-muted/30">
-      {/* 🚀 আপনার ড্যাশবোর্ড আগের মতোই আনটাচড থাকবে */}
       <StudentDashboard />
-
-      {/* 🔒 কন্ডিশন: শুধুমাত্র Approved বা Enrolled ইউজাররাই নোটিশ বোর্ড দেখতে পাবে */}
       {hasActiveEnrollment ? (
         <NoticeBoard notices={notices} links={links} />
       ) : (

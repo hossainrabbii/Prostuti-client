@@ -102,7 +102,6 @@ const deleteCourse = async (id: string) => {
   }
 };
 
-// অবজেক্ট আকারে এক্সপোর্ট যেন সহজে ইম্পোর্ট করে ব্যবহার করা যায়
 export const CourseService = {
   createCourse,
   getAllCourses,

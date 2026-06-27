@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { UserService } from "@/services/user";
 
-// আপনার প্রোভাইড করা Field কম্পোনেন্টটি যদি আলাদা করা না থাকে
 function Field({ icon: Icon, label, children }: { icon: any; label: string; children: React.ReactNode }) {
   return (
     <div>
@@ -34,11 +33,9 @@ export default function RegistrationForm() {
     facebook: "",
   });
 
-  // ফর্ম সাবমিট হ্যান্ডলার
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault(); 
 
-    // বেসিক ক্লায়েন্ট-সাইড ভ্যালিডেশন
     if (!data.name.trim() || !data.email.trim() || !data.password) {
       return toast.error("অনুগ্রহ করে সবকটি আবশ্যিক ফিল্ড পূরণ করুন");
     }
@@ -67,7 +64,7 @@ export default function RegistrationForm() {
     <div className="mt-6 p-4">
         <h3 className="text-2xl font-bold text-foreground">রেজিস্ট্রেশন সম্পন্ন করুন</h3>
     <form onSubmit={handleSubmit} className="mt-6 space-y-4">
-      {/* নাম ফিল্ড */}
+    
       <Field icon={UserIcon} label="পূর্ণ নাম">
         <Input
           value={data.name}
@@ -80,7 +77,6 @@ export default function RegistrationForm() {
         />
       </Field>
 
-      {/* ইমেইল ফিল্ড */}
       <Field icon={Mail} label="ইমেইল">
         <Input
           type="email"
@@ -94,7 +90,6 @@ export default function RegistrationForm() {
         />
       </Field>
 
-      {/* পাসওয়ার্ড ফিল্ড */}
       <Field icon={Lock} label="পাসওয়ার্ড সেট করুন">
         <Input
           type="password"
@@ -108,7 +103,6 @@ export default function RegistrationForm() {
         />
       </Field>
 
-      {/* ফেসবুক লিংক ফিল্ড */}
       <Field icon={""} label="Facebook প্রোফাইল নাম/লিংক (ঐচ্ছিক / Optional)">
       
         <Input
@@ -121,7 +115,6 @@ export default function RegistrationForm() {
         />
       </Field>
 
-      {/* সাবমিট বাটন */}
       <Button
         type="submit"
         disabled={submitting}

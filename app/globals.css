@@ -121,6 +121,7 @@
   }
   html {
     font-family: var(--font-bangla);
+    scroll-behavior: smooth;
   }
   body {
     background-color: var(--color-background);
@@ -128,6 +129,7 @@
     font-family: var(--font-bangla);
     -webkit-font-smoothing: antialiased;
   }
+  
 }
 
 

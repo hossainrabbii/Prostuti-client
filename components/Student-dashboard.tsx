@@ -52,7 +52,6 @@ export default function StudentDashboard() {
   const [myEnrollments, setMyEnrollments] = useState<Enrollment[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // পেমেন্ট মডাল স্টেট
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [selectedCourse, setSelectedCourse] = useState<Course | null>(null);
   const [paidNumber, setPaidNumber] = useState("");
@@ -64,7 +63,6 @@ export default function StudentDashboard() {
     const token = localStorage.getItem("token");
 
     if (!token || !storedUser) {
-      // toast.error("অনুগ্রহ করে আগে লগইন করুন!");
       localStorage.clear();
       router.push("/student-login"); 
       return;
@@ -74,7 +72,6 @@ export default function StudentDashboard() {
       const parsedUser = JSON.parse(storedUser);
       setStudent(parsedUser);
       
-      // লাইভ ডাটা লোড করা
       fetchDashboardData(parsedUser._id);
     } catch (error) {
       console.error("Data parsing error:", error);
@@ -85,11 +82,9 @@ export default function StudentDashboard() {
   const fetchDashboardData = async (studentId: string) => {
     setLoading(true);
     try {
-      // ১. ডাটাবেজ থেকে সব লাইভ কোর্স আনা
       const courseRes = await CourseService.getAllCourses();
       if (courseRes?.success) setCourses(courseRes.data);
 
-      // ২. স্টুডেন্টের নিজের বর্তমান এনরোলমেন্ট হিস্ট্রি আনা
       const enrollRes = await EnrollmentService.getMyEnrollments(studentId);
       if (enrollRes?.success) setMyEnrollments(enrollRes.data);
     } catch (err) {
@@ -112,8 +107,6 @@ export default function StudentDashboard() {
     setIsModalOpen(true);
   };
 
-  // পেমেন্ট রিকোয়েস্ট সাবমিট করা (Enrollment Create)
-// পেমেন্ট রিকোয়েস্ট সাবমিট করা (Enrollment Create)
 const handlePaymentSubmit = async (e: React.FormEvent) => {
   e.preventDefault();
   if (!student || !selectedCourse) return;
@@ -123,7 +116,6 @@ const handlePaymentSubmit = async (e: React.FormEvent) => {
     return;
   }
 
-  // ফোন নম্বর ভ্যালিডেশন চেক (১১ ডিজিট ও ০১ দিয়ে শুরু)
   const phoneRegex = /^01\d{9}$/;
   if (!phoneRegex.test(paidNumber.trim())) {
     toast.error("সঠিক পেমেন্ট নম্বর দিন (অবশ্যই 01 দিয়ে শুরু এবং 11 ডিজিট হতে হবে)");
@@ -132,13 +124,12 @@ const handlePaymentSubmit = async (e: React.FormEvent) => {
 
   setSubmitting(true);
   
-  // 💡 ভর্তিকালীন আসল প্রাইস বের করার লজিক (ডিসকাউন্ট থাকলে সেটা, নাহলে মেইন প্রাইস)
   const coursePrice = selectedCourse.discountPrice !== null ? selectedCourse.discountPrice : selectedCourse.price;
 
   const payload = {
     studentId: student._id,
     courseId: selectedCourse._id,
-    amount: coursePrice, // 🔥 ব্যাকঅ্যান্ডের নতুন রিকোয়ারমেন্ট অনুযায়ী কারেন্ট প্রাইসটি পে-লোডে পাঠানো হলো
+    amount: coursePrice, 
     paidNumber: paidNumber.trim(),
     transactionId: transactionId.trim().toUpperCase(),
   };
@@ -147,13 +138,12 @@ const handlePaymentSubmit = async (e: React.FormEvent) => {
   if (res?.success) {
     toast.success(res.message || "পেমেন্ট সফলভাবে সাবমিট হয়েছে!");
     setIsModalOpen(false);
-    fetchDashboardData(student._id); // ড্যাশবোর্ড ডাটা রিফ্রেশ
+    fetchDashboardData(student._id); 
   } else {
     toast.error(res?.message || "সাবমিশন ব্যর্থ হয়েছে");
   }
   setSubmitting(false);
 };
-  // একটি কোর্সের এনরোলমেন্ট স্ট্যাটাস চেক করার হেল্পার ফাংশন
   const getEnrollmentStatus = (courseId: string) => {
     const enrollment = myEnrollments.find((e) => e.courseId && (e.courseId._id === courseId || (e.courseId as any) === courseId));
     return enrollment ? enrollment.status : null;
@@ -169,7 +159,6 @@ const handlePaymentSubmit = async (e: React.FormEvent) => {
 
   return (
     <div className="bg-muted/30 text-foreground">
-      {/* নেভিগেশন বার */}
       <nav className="sticky top-0 z-40 border-b border-border bg-background/80 backdrop-blur-md">
         <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-4 sm:px-6 lg:px-8">
           <div className="flex items-center gap-2">
@@ -191,7 +180,6 @@ const handlePaymentSubmit = async (e: React.FormEvent) => {
         </div>
 
         <div className="grid grid-cols-1 gap-8 lg:grid-cols-4">
-          {/* প্রোফাইল কার্ড */}
           <div className="lg:col-span-1 space-y-6">
             <div className="rounded-3xl border border-border bg-background p-6 shadow-sm">
               <h3 className="text-sm font-bold text-foreground uppercase tracking-wider text-muted-foreground mb-4">প্রোফাইল ইনফরমেশন</h3>
@@ -220,7 +208,6 @@ const handlePaymentSubmit = async (e: React.FormEvent) => {
             </div>
           </div>
 
-          {/* লাইভ কোর্স তালিকা সেকশন */}
           <div className="lg:col-span-3 space-y-4">
             <h3 className="text-xl font-bold text-foreground">উপলব্ধ কোর্স সমূহ (Live Courses)</h3>
             
@@ -236,7 +223,6 @@ const handlePaymentSubmit = async (e: React.FormEvent) => {
                         <div className="flex items-center justify-between gap-2">
                           <h4 className="font-bold text-lg text-foreground leading-snug">{course.name}</h4>
                           
-                          {/* ডাইনামিক স্ট্যাটাস ব্যাজ */}
                           {status === "pending" && <span className="inline-flex items-center rounded-md bg-amber-50 px-2 py-1 text-xs font-medium text-amber-800 ring-1 ring-inset ring-amber-600/20">Pending Approval</span>}
                           {status === "approved" && <span className="inline-flex items-center rounded-md bg-emerald-50 px-2 py-1 text-xs font-medium text-emerald-700 ring-1 ring-inset ring-emerald-600/20">Enrolled & Active</span>}
                           {status === "rejected" && <span className="inline-flex items-center rounded-md bg-rose-50 px-2 py-1 text-xs font-medium text-rose-700 ring-1 ring-inset ring-rose-600/10">Rejected</span>}
@@ -283,10 +269,8 @@ const handlePaymentSubmit = async (e: React.FormEvent) => {
           </div>
         </div>
 
-        {/* notice */}
       </main>
 
-      {/* 🚀 এনরোল ও পেমেন্ট সাবমিশন মডাল */}
       {isModalOpen && selectedCourse && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm overflow-y-auto">
           <div className="w-full max-w-md rounded-2xl border border-border bg-card p-6 shadow-lg my-8">
@@ -304,7 +288,6 @@ const handlePaymentSubmit = async (e: React.FormEvent) => {
               </div>
             </div>
 
-            {/* পেমেন্ট অ্যাকাউন্ট নম্বর গাইড */}
             <div className="mb-4">
               <Label className="text-xs font-bold text-amber-700 dark:text-amber-400 mb-1.5 block">👇 নিচে দেওয়া নম্বরে টাকা পাঠিয়ে ফরমটি পূরণ করুন:</Label>
               <div className="space-y-1.5">

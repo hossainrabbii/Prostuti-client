@@ -2,7 +2,6 @@ import { Megaphone, Clock, Video, FileText, ExternalLink } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import Link from "next/link";
 
-// টাইপ ডেফিনিশন
 interface INotice {
   _id: string;
   title: string;
@@ -25,7 +24,7 @@ interface NoticeBoardProps {
 }
 
 export default function NoticeBoard({ notices, links }: NoticeBoardProps) {
-  // সময় ও তারিখ সুন্দরভাবে সাজানোর ফাংশন
+ 
   const formatDateTime = (dateString: string) => {
     const date = new Date(dateString);
     return date.toLocaleString("bn-BD", {
@@ -40,7 +39,7 @@ export default function NoticeBoard({ notices, links }: NoticeBoardProps) {
 
   return (
     <div className="mx-auto max-w-7xl px-4 pt-8 sm:px-6 lg:px-8 space-y-6">
-      {/* 🚀 ১. নোটিশ বোর্ড সেকশন */}
+    
       {notices && notices.length > 0 && (
         <div className="rounded-3xl border border-amber-200/60 p-6 shadow-sm dark:border-amber-900/30 dark:bg-amber-950/10">
           <div className="flex items-center gap-2 text-amber-800 dark:text-amber-400 font-bold mb-5">
@@ -54,19 +53,16 @@ export default function NoticeBoard({ notices, links }: NoticeBoardProps) {
                 <div className="absolute left-0 top-0 bottom-0 w-1.5 bg-amber-400"></div>
                 
                 <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 mb-3">
-                  {/* 📌 টাইটেল (Bold) */}
+               
                   <h3 className="font-bold text-lg text-foreground leading-snug">
                     {notice.title}
                   </h3>
                   
-                  {/* 📌 সময় (Time) */}
                   <span className="flex items-center gap-1.5 text-xs text-muted-foreground font-mono bg-muted/50 px-2.5 py-1 rounded-md whitespace-nowrap">
                     <Clock className="h-3.5 w-3.5" />
                     {formatDateTime(notice.createdAt)}
                   </span>
                 </div>
-                
-                {/* 📌 কনটেন্ট */}
                 <p className="text-sm text-muted-foreground whitespace-pre-wrap leading-relaxed">
                   {notice.content}
                 </p>
@@ -75,14 +71,12 @@ export default function NoticeBoard({ notices, links }: NoticeBoardProps) {
           </div>
         </div>
       )}
-
-      {/* 🚀 ২. লাইভ ক্লাস এবং পরীক্ষার লিংক সেকশন */}
       {links && (links.liveUrl || links.examUrl) && (
         <div className="rounded-3xl border border-border bg-background p-6 shadow-sm">
           <h2 className="text-lg font-bold text-foreground mb-4">ক্লাস ও পরীক্ষা লিংক</h2>
           
           <div className="grid gap-4 sm:grid-cols-2">
-            {/* লাইভ ক্লাস */}
+          
             <div className="rounded-2xl border p-4 bg-muted/20 flex flex-col justify-between gap-4">
               <div>
                 <h4 className="font-bold text-sm flex items-center gap-2 text-foreground">
@@ -100,7 +94,6 @@ export default function NoticeBoard({ notices, links }: NoticeBoardProps) {
               )}
             </div>
 
-            {/* পরীক্ষা (Exam) */}
             <div className="rounded-2xl border p-4 bg-muted/20 flex flex-col justify-between gap-4">
               <div>
                 <h4 className="font-bold text-sm flex items-center gap-2 text-foreground">

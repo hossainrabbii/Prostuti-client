@@ -6,21 +6,17 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
-import { LinksService, ILinks } from "@/services/link"; // আপনার সঠিক সার্ভিস পাথ দিন
+import { LinksService, ILinks } from "@/services/link"; 
 
 export default function LinksPanel() {
-  // ইনপুট ফিল্ডের জন্য স্টেটসমূহ
   const [live, setLive] = useState("");
   const [exam, setExam] = useState("");
   
-  // ব্যাকএন্ড থেকে পাওয়া সর্বশেষ লিংকের ডেটা রাখার স্টেট
   const [savedLinks, setSavedLinks] = useState<ILinks>({ liveUrl: "", examUrl: "", updatedAt: "" });
   
-  // লোডিং এবং সাবমিটিং ইন্ডিকেটর স্টেটসমূহ
   const [loading, setLoading] = useState<boolean>(true);
   const [submitting, setSubmitting] = useState<boolean>(false);
 
-  // 🚀 ১. ডাটাবেজ থেকে সর্বশেষ লিংক ডাটা রিড করা (GET)
   const fetchLatestLinks = async () => {
     try {
       const response = await LinksService.getLatestLinks();
@@ -42,7 +38,6 @@ export default function LinksPanel() {
     fetchLatestLinks();
   }, []);
 
-  // 🚀 ২. ইনপুট ডাটা আপসার্ট/সেভ করা (POST)
   async function handleSave(e: React.FormEvent) {
     e.preventDefault();
     
@@ -55,7 +50,7 @@ export default function LinksPanel() {
 
       if (response && response.success) {
         toast.success("লিংক সফলভাবে সেভ হয়েছে");
-        setSavedLinks(response.data); // রিয়েল-টাইম UI আপডেট
+        setSavedLinks(response.data); 
         setLive("");
         setExam("");
       } else {
@@ -68,7 +63,6 @@ export default function LinksPanel() {
     }
   }
 
-  // ইনিশিয়াল ডাটা লোড হওয়ার সময় ইউজারকে ক্লিন ব্ল্যাঙ্ক বা স্পিনার ভিউ দেওয়া
   if (loading) {
     return (
       <div className="flex py-20 items-center justify-center rounded-2xl border border-border bg-card">
@@ -80,7 +74,6 @@ export default function LinksPanel() {
 
   return (
     <div className="grid gap-4 lg:grid-cols-2 font-bangla">
-      {/* লিংক ইনপুট ও সেভ ফর্ম */}
       <form onSubmit={handleSave} className="rounded-2xl border border-border bg-card p-6 shadow-sm lg:col-span-2">
         <div className="mb-5 flex items-center gap-2">
           <div className="grid h-9 w-9 place-items-center rounded-lg bg-accent/15 text-accent">
@@ -93,7 +86,6 @@ export default function LinksPanel() {
         </div>
 
         <div className="grid gap-4 sm:grid-cols-2">
-          {/* লাইভ ক্লাসের লিংক ইনপুট */}
           <div>
             <Label htmlFor="live" className="text-sm">
               <Video className="mr-1 inline h-4 w-4" /> লাইভ ক্লাসের লিংক
@@ -108,7 +100,6 @@ export default function LinksPanel() {
             />
           </div>
           
-          {/* পরীক্ষার লিংক ইনপুট */}
           <div>
             <Label htmlFor="exam" className="text-sm">
               <FileQuestion className="mr-1 inline h-4 w-4" /> পরীক্ষার লিংক
@@ -124,7 +115,6 @@ export default function LinksPanel() {
           </div>
         </div>
 
-        {/* নিচের অ্যাকশন বার */}
         <div className="mt-5 flex flex-col justify-between gap-3 sm:flex-row sm:items-center">
           <Button 
             type="submit" 
@@ -147,7 +137,6 @@ export default function LinksPanel() {
         </div>
       </form>
 
-      {/* লাইভ ক্লাস লিংক প্রিভিউ কার্ড */}
       <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
         <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
           <Video className="h-4 w-4 text-muted-foreground" /> লাইভ ক্লাস লিংক
@@ -166,7 +155,6 @@ export default function LinksPanel() {
         )}
       </div>
 
-      {/* পরীক্ষা লিংক প্রিভিউ কার্ড */}
       <div className="rounded-2xl border border-border bg-card p-5 shadow-sm">
         <div className="flex items-center gap-2 text-sm font-semibold text-foreground">
           <FileQuestion className="h-4 w-4 text-muted-foreground" /> পরীক্ষা লিংক

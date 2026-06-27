@@ -2,16 +2,15 @@ import {
     Infinity as InfinityIcon,
   
     Sparkles,
-    ArrowRight,
-   
-    User as UserIcon,
-   
+    ArrowRight,   
+    User as UserIcon,   
     CheckCircle2,
     TrendingDown,
   
   } from "lucide-react";
 import { Button } from "./ui/button";
 import { featuresData } from "@/lib/demoData";
+import Link from "next/link";
 function Hero({ onEnroll }: { onEnroll: () => void }) {
     return (
       <section className="relative overflow-hidden bg-gradient-hero text-primary-foreground">
@@ -40,17 +39,20 @@ function Hero({ onEnroll }: { onEnroll: () => void }) {
             </p>
   
             <div className="mt-8 flex flex-wrap items-center gap-4">
-              <Button
-                size="lg"
-                onClick={onEnroll}
-                className="h-14 rounded-xl bg-warning px-8 text-base font-bold text-warning-foreground shadow-glow hover:opacity-95 animate-pulse-ring"
+              <Link
+                href="#courses"
+                
               >
-                ভর্তি হোন — মাত্র ১৫০৳ <ArrowRight className="ml-2 h-5 w-5" />
-              </Button>
-              <div className="flex items-baseline gap-2 text-white/90">
+                <Button
+                size='lg'
+                className="h-14 rounded-xl bg-warning px-8 text-base font-bold text-warning-foreground shadow-glow hover:opacity-95 hover:text-white animate-pulse-ring">
+               কোর্সসমূহ <ArrowRight className="ml-2 h-5 w-5" />                  
+                </Button>
+              </Link>
+              {/* <div className="flex items-baseline gap-2 text-white/90">
                 <span className="text-base text-white/60 line-through">১৫০০৳</span>
                 <span className="rounded-md bg-destructive px-2 py-0.5 text-sm font-bold">৯০% ছাড়</span>
-              </div>
+              </div> */}
             </div>
   
             <div className="mt-10 flex flex-wrap gap-x-8 gap-y-3 text-sm text-white/80">
@@ -65,8 +67,8 @@ function Hero({ onEnroll }: { onEnroll: () => void }) {
             <div className="relative rounded-3xl border border-white/20 bg-white/10 p-6 backdrop-blur-xl shadow-elegant">
               <div className="flex items-center justify-between border-b border-white/15 pb-4">
                 <div>
-                  <p className="text-xs uppercase tracking-wider text-white/60">কোর্স ফি</p>
-                  <p className="mt-1 text-3xl font-bold">১৫০ ৳ <span className="text-base font-normal text-white/60 line-through">১৫০০৳</span></p>
+                  {/* <p className="text-xs uppercase tracking-wider text-white/60">কোর্স ফি</p> */}
+                  <p className="mt-1 text-3xl font-bold">বিশেষ সাপোর্ট সমূহ</p>
                 </div>
                 <div className="grid h-14 w-14 place-items-center rounded-2xl bg-warning text-warning-foreground shadow-md">
                   <TrendingDown className="h-6 w-6" />

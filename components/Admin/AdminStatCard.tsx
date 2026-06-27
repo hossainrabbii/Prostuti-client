@@ -1,7 +1,7 @@
 "use client";
 
 import { Users, Clock, CheckCircle2, Wallet, TrendingUp } from "lucide-react";
-import { Enrollment } from "../AdminDashboard"; // আপনার সঠিক পাথ অনুযায়ী ইম্পোর্ট করে নিন
+import { Enrollment } from "../AdminDashboard"; 
 
 interface AdminStatCardProps {
   enrollments: Enrollment[];

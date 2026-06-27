@@ -7,29 +7,24 @@ import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { toast } from "sonner";
-import { NoticeService, INotice } from "@/services/notice"; // আপনার সঠিক সার্ভিস পাথ দিন
+import { NoticeService, INotice } from "@/services/notice"; 
 
 export default function NoticesPanel() {
-  // ডাটাবেজ থেকে আসা নোটিশ লিস্টের স্টেট
   const [notices, setNotices] = useState<INotice[]>([]);
   
-  // ইনপুট ফিল্ড স্টেটসমূহ (নতুন নোটিশের জন্য)
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
   
-  // এডিট বাটন চাপলে মডাল কন্ট্রোল ও ডাটা রাখার স্টেট
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editingNoticeId, setEditingNoticeId] = useState<string | null>(null);
   const [editTitle, setEditTitle] = useState("");
   const [editContent, setEditContent] = useState("");
 
-  // লোডিং ও অ্যাকশন স্টেটসমূহ
   const [loading, setLoading] = useState<boolean>(true);
   const [submitting, setSubmitting] = useState<boolean>(false);
   const [updating, setUpdating] = useState<boolean>(false);
   const [deletingId, setDeletingId] = useState<string | null>(null);
 
-  // 🚀 ১. ডাটাবেজ থেকে নোটিশ লোড করা (GET)
   const fetchNotices = async () => {
     try {
       const response = await NoticeService.getAllNotices();
@@ -48,7 +43,6 @@ export default function NoticesPanel() {
     fetchNotices();
   }, []);
 
-  // 🚀 ২. নতুন নোটিশ ডাটাবেজে পাবলিশ করা (POST)
   async function handlePublish(e: React.FormEvent) {
     e.preventDefault();
     if (!title.trim() || !content.trim()) {
@@ -63,7 +57,7 @@ export default function NoticesPanel() {
         toast.success("নোটিশ প্রকাশিত হয়েছে");
         setTitle("");
         setContent("");
-        fetchNotices(); // রিয়েল-টাইম লিস্ট রিফ্রেশ
+        fetchNotices(); 
       } else {
         throw new Error(response.message || "পাবলিশ করতে সমস্যা হয়েছে।");
       }
@@ -74,7 +68,6 @@ export default function NoticesPanel() {
     }
   }
 
-  // 🚀 ৩. এডিট মোড ওপেন করা
   const openEditModal = (notice: INotice) => {
     setEditingNoticeId(notice._id);
     setEditTitle(notice.title);
@@ -82,7 +75,6 @@ export default function NoticesPanel() {
     setIsEditModalOpen(true);
   };
 
-  // 🚀 ৪. নোটিশ আপডেট সাবমিট করা (PATCH)
   const handleUpdateNotice = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!editingNoticeId || !editTitle.trim() || !editContent.trim()) {
@@ -100,7 +92,7 @@ export default function NoticesPanel() {
         toast.success("নোটিশ সফলভাবে আপডেট করা হয়েছে");
         setIsEditModalOpen(false);
         setEditingNoticeId(null);
-        fetchNotices(); // UI লিস্ট আপডেট
+        fetchNotices(); 
       } else {
         throw new Error(response.message || "আপডেট করতে সমস্যা হয়েছে।");
       }
@@ -111,7 +103,6 @@ export default function NoticesPanel() {
     }
   };
 
-  // 🚀 ৫. ডাটাবেজ থেকে নোটিশ ডিলিট করা (DELETE)
   const handleDelete = async (id: string) => {
     setDeletingId(id);
     try {
@@ -132,7 +123,6 @@ export default function NoticesPanel() {
   return (
     <div className="grid gap-4 lg:grid-cols-5 font-bangla relative">
       
-      {/* বাম পাশ: নোটিশ ফর্ম */}
       <form onSubmit={handlePublish} className="rounded-2xl border border-border bg-card p-6 shadow-sm lg:col-span-2 h-fit">
         <div className="mb-4 flex items-center gap-2">
           <div className="grid h-9 w-9 place-items-center rounded-lg bg-warning/20 text-warning-foreground">
@@ -181,7 +171,6 @@ export default function NoticesPanel() {
         </Button>
       </form>
 
-      {/* ডান পাশ: প্রকাশিত নোটিশের রিয়েল লিস্ট */}
       <div className="rounded-2xl border border-border bg-card p-6 shadow-sm lg:col-span-3">
         <h3 className="mb-4 font-bold text-foreground">প্রকাশিত নোটিশসমূহ ({notices.length})</h3>
         
@@ -247,12 +236,10 @@ export default function NoticesPanel() {
         )}
       </div>
 
-      {/* 🛠️ নোটিশ এডিট করার কাস্টম পপআপ মডাল (Overlay) */}
       {isEditModalOpen && (
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50 backdrop-blur-sm p-4">
           <div className="w-full max-w-md rounded-2xl border border-border bg-card p-6 shadow-lg relative animate-in fade-in zoom-in duration-200">
             
-            {/* মডাল ক্লোজ বাটন */}
             <button 
               onClick={() => setIsEditModalOpen(false)}
               className="absolute top-4 right-4 text-muted-foreground hover:text-foreground rounded-md p-1"

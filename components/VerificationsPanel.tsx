@@ -8,7 +8,6 @@ import { toast } from "sonner";
 import { Input } from "./ui/input";
 import { Button } from "./ui/button";
 
-// 💡 ইন্টারফেসটি সম্পূর্ণ টাইপ-সেফ করা হলো
 export interface Enrollment {
   _id: string;
   studentId: {
@@ -16,14 +15,14 @@ export interface Enrollment {
     name: string;
     email: string;
     phone?: string;
-    facebook?: string; // 👈 অলরেডি ডিফাইনড
+    facebook?: string; 
   } | null;
   courseId: {
     _id: string;
     name: string;
     price: number;
   } | null;
-  amount: number; // 👈 নতুন ডেটাবেজ স্কিমা অনুযায়ী পরিমাণ ফিল্ড
+  amount: number; 
   paidNumber: string;
   transactionId: string;
   status: "pending" | "approved" | "rejected";
@@ -37,7 +36,6 @@ interface EnrollmentdProps {
 }
 
 export default function VerificationsPanel({ enrollments }: EnrollmentdProps) {
-  // ব্যাকএন্ড ডাটা থেকে সেফলি অ্যারে এক্সট্রাক্ট করা (enrollments.data)
   const rawData = enrollments?.data || (Array.isArray(enrollments) ? enrollments : []);
 
   const {
@@ -55,7 +53,6 @@ export default function VerificationsPanel({ enrollments }: EnrollmentdProps) {
   const onApproveClick = async (id: string) => {
     setLoadingId(id);
     try {
-      // সার্ভিস কল: PATCH মেথড দিয়ে status: "approved" পাঠানো হচ্ছে
       const result = await EnrollmentService.updateEnrollmentStatus(id, "approved");
 
       if (result && (result.success !== false)) {
@@ -73,14 +70,13 @@ export default function VerificationsPanel({ enrollments }: EnrollmentdProps) {
     }
   };
 
-  // ২. আপনার সার্ভিস ব্যবহার করে ডাটাবেজ থেকে রিকোয়েস্ট Delete করা
   const onDeleteClick = async (id: string) => {
     setLoadingId(id);
     try {
       const result = await EnrollmentService.deleteEnrollment(id);
 
       if (result && (result.success !== false)) {
-        handleDelete(id); // লোকাল UI স্টেট থেকে রিমুভ
+        handleDelete(id); 
         toast.success("এনরোলমেন্ট রিকোয়েস্টটি মুছে ফেলা হয়েছে।");
       } else {
         throw new Error(result?.message || "মুছে ফেলা সম্ভব হয়নি।");
@@ -98,7 +94,7 @@ export default function VerificationsPanel({ enrollments }: EnrollmentdProps) {
   return (
     <>
       <div className="rounded-2xl border border-border bg-card shadow-sm font-bangla">
-        {/* সার্চ এবং ফিল্টার এরিয়া */}
+      
         <div className="flex flex-col gap-3 border-b border-border p-4 sm:flex-row sm:items-center sm:justify-between">
           <div className="relative w-full sm:max-w-sm">
             <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
@@ -125,7 +121,6 @@ export default function VerificationsPanel({ enrollments }: EnrollmentdProps) {
           </div>
         </div>
 
-        {/* টেবিল এরিয়া */}
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead className="bg-secondary/60 text-xs uppercase tracking-wider text-muted-foreground">
@@ -148,7 +143,7 @@ export default function VerificationsPanel({ enrollments }: EnrollmentdProps) {
                   </td>
                 </tr>
               ) : (
-                safeData.map((e: any) => ( // 💡 টাইপ কাস্টিং সেফটি অ্যাসাইন করা হলো
+                safeData.map((e: any) => ( 
                   <tr key={e._id} className="transition-colors hover:bg-secondary/40">
                     <td className="px-4 py-3 align-middle font-semibold text-foreground">
                       {e.courseId?.name ? e.courseId.name : <span className="text-destructive text-xs font-normal">কোর্সটি মুছে ফেলা হয়েছে</span>}

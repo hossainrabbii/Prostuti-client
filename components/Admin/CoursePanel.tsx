@@ -38,7 +38,6 @@ export default function CoursesPanel() {
     description: ""
   });
 
-  // ডাইনামিক পেমেন্ট মেথডের স্টেট ম্যানেজমেন্ট
   const [paymentMethods, setPaymentMethods] = useState<PaymentMethod[]>([
     { name: "Bkash", number: "" }
   ]);
@@ -78,7 +77,6 @@ export default function CoursesPanel() {
     setIsOpen(true);
   };
 
-  // ডাইনামিক পেমেন্ট ফিল্ড হ্যান্ডেল করার লজিক
   const handlePaymentMethodChange = (index: number, field: keyof PaymentMethod, value: string) => {
     const updated = [...paymentMethods];
     updated[index][field] = value;
@@ -104,7 +102,6 @@ export default function CoursesPanel() {
       return;
     }
 
-    // 🚀 ফোন নম্বর ভ্যালিডেশন চেক (০১ দিয়ে শুরু এবং মোট ১১ ডিজিট)
     const phoneRegex = /^01\d{9}$/;
     
     if (paymentMethods.length === 0) {
@@ -193,7 +190,6 @@ export default function CoursesPanel() {
                 
                 <p className="mt-2 text-xs text-muted-foreground whitespace-pre-wrap leading-relaxed">{course.description}</p>
                 
-                {/* 🚀 ডাইনামিক পেমেন্ট নম্বর ডিসপ্লে (কার্ডে দেখার ব্যবস্থা) */}
                 {course.paymentMethods && course.paymentMethods.length > 0 && (
                   <div className="mt-3 rounded-lg bg-secondary/60 p-2.5 border border-border/60">
                     <p className="text-[11px] font-bold uppercase tracking-wider text-muted-foreground mb-1.5 flex items-center gap-1"><Wallet className="h-3 w-3" /> পেমেন্ট অ্যাকাউন্টসমূহ:</p>
@@ -246,7 +242,6 @@ export default function CoursesPanel() {
                 <Textarea value={formData.description} onChange={e => setFormData({...formData, description: e.target.value})} placeholder="কোর্সের বিবরণ... (নিউ লাইন বা এন্টার সাপোর্ট করবে)" rows={4} className="mt-1" />
               </div>
 
-              {/* 🚀 ডাইনামিক পেমেন্ট মেথড ইনপুট সেকশন */}
               <div className="space-y-2 border-t pt-3">
                 <div className="flex items-center justify-between">
                   <Label className="text-xs font-bold text-foreground flex items-center gap-1"><Phone className="h-3.5 w-3.5 text-muted-foreground" /> পেমেন্ট নম্বর সেট করুন (01... থেকে ১১ ডিজিট) *</Label>
